@@ -231,7 +231,7 @@ void tx_application_define(void *first_unused_memory)
     tx_mutex_create(&mutex_0, "mutex 0", TX_NO_INHERIT);
 
     /* Create the mutex used by uart */
-    tx_mutex_create(&mutex_0, "mutex uart", TX_NO_INHERIT);
+    tx_mutex_create(&mutex_uart, "mutex uart", TX_NO_INHERIT);
 
     /* Allocate the memory for a small block pool.  */
     tx_byte_allocate(&byte_pool_0, (VOID **)&pointer, DEMO_BLOCK_POOL_SIZE, TX_NO_WAIT);
