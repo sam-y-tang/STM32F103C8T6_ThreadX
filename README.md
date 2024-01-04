@@ -26,10 +26,9 @@ libopencm3).
         |- stm32f103c8t6.ld
         |- Makefile             makes all top-level projects
         |- Makefile.incl        rules for make file builds
+        |- images               images of test bench setup and uart screenshot
         |- samples
             |- blink    gpio, uart, threadx sample
-
-
 
 ## PREREQUISITES:
 
@@ -52,14 +51,28 @@ libopencm3).
 
             $ git submodule update --recursive          # Subsequent
 
-    2.  At the top level, do a "make" so that the projects get built.  
+    2.  At the top level, do a "make" so that the projects get built.
         Do a "make clobber" first, if you need to rebuild.
 
 ## TEST EXAMPLES:
 
-    $ make    
+    $ make
 
 will build your blink example.
+
+### Test bench setup:
+
+<img src="images/bluepill_ThreadX_blink.jpg" alt="test bench set up" width="200"/>
+
+### UART output sceenshot
+
+#### UART has not ThreadX synchronization
+
+<img src="images/blink_without_sync.png" alt="uart output (no ThreadX synch)" width="200"/>
+
+#### UART has mutex synchronization
+
+<img src="images/blink_uart_sync.png" alt="uart output (no ThreadX synch)" width="200"/>
 
 ## LICENSE:
 
