@@ -15,7 +15,7 @@ that just works for the STM32F103.
 
 ## PROJECT STRUCTURE:
 
-The subdirectory ./rtos contains projects that do use FreeRTOS (and
+The subdirectory ./rtos contains projects that do use ThreadX (and
 libopencm3).
 
     stm32f103c8t6/
@@ -52,35 +52,17 @@ libopencm3).
 
             $ git submodule update --recursive          # Subsequent
 
-    2.  Go into ./libopencm3 and type "make". This should build the
-        static libraries that will be needed. Any issues there should
-        go to the libopencm3 community.
-
-    3.  For FreeRTOS, cd into ./rtos and unzip your FreeRTOS download
-        there. It should create a subdirectory FreeRTOSv10.0.0 or
-        similar. If the release differs, you'll need to change the
-        variable assignment in rtos/Project.mk FREERTOS ?= ....
-        to match, or use the shell: export FREERTOS=whatever
-
-    4.  Do NOT compile FreeRTOS, since portions of it will be copied
-        to your project subdirectory for further customization. Each
-        project is capable of running a different FreeRTOS configuration.
-
-    5.  At the top level, do a "make" so that the libwwg and other
-        projects get built.  Do a "make clobber" first, if you need
-        to rebuild.
+    2.  At the top level, do a "make" so that the projects get built.  
+        Do a "make clobber" first, if you need to rebuild.
 
 ## TEST EXAMPLES:
 
-should build and flash your example program. Flashing assumes the
-use of the st-link (v2) command.
 
-Or go into ./rtos/blink:
 
     $ make
     $ make flash
 
-will build your sample_threadx example.
+will build your blink example.
 
 ## LICENSE:
 
