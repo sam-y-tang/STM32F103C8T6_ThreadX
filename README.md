@@ -27,7 +27,7 @@ libopencm3).
         |- Makefile             makes all top-level projects
         |- Makefile.incl        rules for make file builds
         |- samples
-            |- blink_threadx    gpio, uart, threadx sample
+            |- blink    gpio, uart, threadx sample
 
 
 
