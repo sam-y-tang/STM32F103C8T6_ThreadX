@@ -5,6 +5,8 @@ This provides a ready development environment for those who want to
 apply the economical STM32F103 to using libopencm3 alone or in
 concert with ThreadX.
 
+Makefile and Makefile.incl were modified from Warren Gay's project stm32f103c8t6[stm32f103c8t6 github](https://github.com/ve3wwg/stm32f103c8t6). Please follow the link.
+
 ## THIS PROJECT ONLY USES OPEN SOURCE TOOLS
 
 No Windows based IDE environments are used or implied! Cygwin, Linux,
