@@ -59,8 +59,7 @@ libopencm3).
 
 
 
-    $ make
-    $ make flash
+    $ make    
 
 will build your blink example.
 
