@@ -57,8 +57,6 @@ libopencm3).
 
 ## TEST EXAMPLES:
 
-
-
     $ make    
 
 will build your blink example.
