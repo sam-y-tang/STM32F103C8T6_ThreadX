@@ -13,6 +13,37 @@
 #define DEMO_BYTE_POOL_SIZE 9120
 #define DEMO_BLOCK_POOL_SIZE 100
 #define DEMO_QUEUE_SIZE 100
+/* Define the ThreadX object control blocks...  */
+
+TX_THREAD thread_0;
+TX_THREAD thread_1;
+TX_THREAD thread_2;
+TX_THREAD thread_3;
+TX_THREAD thread_4;
+TX_THREAD thread_5;
+TX_THREAD thread_6;
+TX_THREAD thread_7;
+TX_QUEUE queue_0;
+TX_SEMAPHORE semaphore_0;
+TX_MUTEX mutex_0;
+TX_MUTEX mutex_uart;
+TX_EVENT_FLAGS_GROUP event_flags_0;
+TX_BYTE_POOL byte_pool_0;
+TX_BLOCK_POOL block_pool_0;
+UCHAR memory_area[DEMO_BYTE_POOL_SIZE];
+
+/* Define the counters used in the demo application...  */
+
+ULONG thread_0_counter;
+ULONG thread_1_counter;
+ULONG thread_1_messages_sent;
+ULONG thread_2_counter;
+ULONG thread_2_messages_received;
+ULONG thread_3_counter;
+ULONG thread_4_counter;
+ULONG thread_5_counter;
+ULONG thread_6_counter;
+ULONG thread_7_counter;
 
 static int uart_printf(const char *format, ...) __attribute((format(printf, 1, 2)));
 
@@ -74,41 +105,14 @@ uart_printf(const char *format, ...)
     int rc;
 
     va_start(args, format);
+
+    tx_mutex_get(&mutex_uart, TX_WAIT_FOREVER);
     rc = mini_vprintf_cooked(uart_putc, format, args);
+    tx_mutex_put(&mutex_uart);
+
     va_end(args);
     return rc;
 }
-
-/* Define the ThreadX object control blocks...  */
-
-TX_THREAD thread_0;
-TX_THREAD thread_1;
-TX_THREAD thread_2;
-TX_THREAD thread_3;
-TX_THREAD thread_4;
-TX_THREAD thread_5;
-TX_THREAD thread_6;
-TX_THREAD thread_7;
-TX_QUEUE queue_0;
-TX_SEMAPHORE semaphore_0;
-TX_MUTEX mutex_0;
-TX_EVENT_FLAGS_GROUP event_flags_0;
-TX_BYTE_POOL byte_pool_0;
-TX_BLOCK_POOL block_pool_0;
-UCHAR memory_area[DEMO_BYTE_POOL_SIZE];
-
-/* Define the counters used in the demo application...  */
-
-ULONG thread_0_counter;
-ULONG thread_1_counter;
-ULONG thread_1_messages_sent;
-ULONG thread_2_counter;
-ULONG thread_2_messages_received;
-ULONG thread_3_counter;
-ULONG thread_4_counter;
-ULONG thread_5_counter;
-ULONG thread_6_counter;
-ULONG thread_7_counter;
 
 /* Define thread prototypes.  */
 
@@ -127,9 +131,6 @@ int main(void)
     init_clock();
     init_gpio();
     init_usart();
-
-    int c = uart_printf("\nuart.c demo using mini_printf():\n");
-    uart_printf("Count = %d\n", c);
 
     /* Enter the ThreadX kernel.  */
     tx_kernel_enter();
@@ -228,6 +229,9 @@ void tx_application_define(void *first_unused_memory)
 
     /* Create the mutex used by thread 6 and 7 without priority inheritance.  */
     tx_mutex_create(&mutex_0, "mutex 0", TX_NO_INHERIT);
+
+    /* Create the mutex used by uart */
+    tx_mutex_create(&mutex_0, "mutex uart", TX_NO_INHERIT);
 
     /* Allocate the memory for a small block pool.  */
     tx_byte_allocate(&byte_pool_0, (VOID **)&pointer, DEMO_BLOCK_POOL_SIZE, TX_NO_WAIT);
