@@ -5,7 +5,7 @@ This provides a ready development environment for those who want to
 apply the economical STM32F103 to using libopencm3 alone or in
 concert with ThreadX.
 
-Makefile and Makefile.incl were modified from Warren Gay's project stm32f103c8t6[stm32f103c8t6 github](https://github.com/ve3wwg/stm32f103c8t6). Please follow the link.
+Makefile and Makefile.incl were modified from Warren Gay's project [stm32f103c8t6 github](https://github.com/ve3wwg/stm32f103c8t6). Please follow the link.
 
 ## THIS PROJECT ONLY USES OPEN SOURCE TOOLS
 
@@ -29,6 +29,7 @@ libopencm3).
         |- Makefile             makes all top-level projects
         |- Makefile.incl        rules for make file builds
         |- images               images of test bench setup and uart screenshot
+        |- tools                run development tools in a docker image
         |- samples
             |- blink    gpio, uart, threadx sample
 
@@ -56,11 +57,26 @@ libopencm3).
     2.  At the top level, do a "make" so that the projects get built.
         Do a "make clobber" first, if you need to rebuild.
 
+    3.  Build the project in a docker container (ubuntu 22.04)
+
 ## TEST EXAMPLES:
 
+    $ git clone --depth 1 --recursive https://github.com/sam-y-tang/STM32F103C8T6_ThreadX.git
     $ make
 
-will build your blink example.
+    If you have the development environment, it will build your blink example.
+    In Ubuntu 22.04, sudo apt update && sudo apt install -y cmake git gcc-arm-none-eabi python3 ninja-build
+
+    You can build the project in a docker container.
+    1. Start the dev container,
+        ```shell
+        cd tools && docker compose up -d
+        ```
+    2. Go to the terminal of the docker container,
+       ```bash
+       $cd /data
+       $make
+       ```
 
 ### Test bench setup:
 
